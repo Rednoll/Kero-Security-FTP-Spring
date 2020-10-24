@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
-import com.kero.security.core.agent.KeroAccessAgentFactory;
-import com.kero.security.core.agent.configurator.AccessAgentFtpResourceConfigurator;
+import com.kero.security.core.agent.configurator.KsdlAgentFtpResourceConfigurator;
+import com.kero.security.ksdl.agent.KsdlAgentFactory;
 
 @Configuration
-public class KeroAccessAgentFactoryFtpConfiguration implements KeroAccessAgentFactorySpringConfiguration {
+public class KsdlAgentFactoryFtpConfiguration implements KsdlAgentFactorySpringConfiguration {
 	
 	private static Logger LOGGER = LoggerFactory.getLogger("Kero-Security-Ftp-Spring");
 	
@@ -35,14 +35,8 @@ public class KeroAccessAgentFactoryFtpConfiguration implements KeroAccessAgentFa
 	@Value("${kero.security.lang.resource.ftp.suffixes:.k-s,.ks}")
 	private String[] rawSuffixes;
 	
-	@Value("${kero.security.lang.resource.cache.enabled:true}")
-	private boolean resourceCacheEnabled;
-	
-	@Value("${kero.security.lang.provider.cache.enabled:true}")
-	private boolean providerCacheEnabled;
-	
 	@Override
-	public void configure(KeroAccessAgentFactory factory) {
+	public void configure(KsdlAgentFactory factory) {
 		
 		if(this.server == null
 		&& this.username == null) return;
@@ -54,8 +48,8 @@ public class KeroAccessAgentFactoryFtpConfiguration implements KeroAccessAgentFa
 
 			Set<String> suffixes = new HashSet<>(Arrays.asList(this.rawSuffixes));
 			
-			AccessAgentFtpResourceConfigurator conf =
-				new AccessAgentFtpResourceConfigurator(server, port, username, pass, path, resourceCacheEnabled, providerCacheEnabled, suffixes);
+			KsdlAgentFtpResourceConfigurator conf =
+				new KsdlAgentFtpResourceConfigurator(server, port, username, pass, path, suffixes);
 		
 			factory.addConfigurator(conf);
 			

@@ -69,16 +69,11 @@ description = 'Kero-Security-FTP-Spring - auto configuration FTP servers as KSDL
 repositories {
 
 	mavenCentral()
-}
-
-bootJar {
-
-   enabled = false
-}
-
-jar {
 	
-	enabled = true
+	maven {
+
+		url "https://oss.sonatype.org/content/repositories/snapshots"
+	}
 }
 
 dependencies {
@@ -89,9 +84,20 @@ dependencies {
 	
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 
-	implementation 'com.github.rednoll:kero-security:[0.1,)'
-	implementation 'com.github.rednoll:kero-security-ftp:[0.1,)'
-	implementation 'com.github.rednoll:kero-security-spring:[0.1,)'
+	implementation 'com.github.rednoll:kero-security:0.2.0-SNAPSHOT'
+	implementation 'com.github.rednoll:kero-security-ksdl:0.0.0-SNAPSHOT'
+	implementation 'com.github.rednoll:kero-security-ftp:0.2.0-SNAPSHOT'
+	implementation 'com.github.rednoll:kero-security-spring:0.2.0-SNAPSHOT'
+}
+
+bootJar {
+
+   enabled = false
+}
+
+jar {
+	
+	enabled = true
 }
 
 java {
